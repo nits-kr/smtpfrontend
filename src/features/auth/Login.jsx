@@ -3,32 +3,23 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loginStart, loginSuccess, loginFailure } from './authSlice';
+import { useLoginMutation } from './authApi';
+import { setCredentials } from './authSlice';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+    const [login, { isLoading }] = useLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        dispatch(loginStart());
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            if (data.email === 'admin@example.com' && data.password === 'password') {
-                const mockUser = { name: 'Admin User', role: 'admin', email: data.email };
-                const mockToken = 'mock-jwt-token-12345';
-
-                dispatch(loginSuccess({ user: mockUser, token: mockToken }));
-                toast.success('Login Successful! Welcome back.');
-                navigate('/dashboard');
-            } else {
-                throw new Error('Invalid credentials');
-            }
+            const result = await login(data).unwrap();
+            dispatch(setCredentials({ ...result, user: result.user }));
+            toast.success('Login Successful! Welcome back.');
+            navigate('/dashboard');
         } catch (error) {
-            dispatch(loginFailure(error.message));
-            toast.error(error.message || 'Login failed');
+            toast.error(error?.data?.message || 'Login failed');
         }
     };
 
@@ -59,10 +50,10 @@ const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isLoading}
                         className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-bold py-2 rounded transition-all flex items-center justify-center"
                     >
-                        {isSubmitting ? 'Signing in...' : 'Sign In'}
+                        {isLoading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
             </div>

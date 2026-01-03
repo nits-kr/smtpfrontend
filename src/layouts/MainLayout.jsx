@@ -1,5 +1,7 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 import {
   FiMail,
   FiTool,
@@ -14,9 +16,18 @@ import {
 } from "react-icons/fi";
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-[#181c20] text-slate-100">
-      <header className="bg-[#343a40] border-b border-slate-800">
+      <header className="bg-[#343a40] border-b border-slate-800 sticky top-0 z-50">
         <div className="px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-8">
@@ -24,7 +35,7 @@ const MainLayout = () => {
 
             {/* NAV */}
             <nav className="hidden md:flex items-center space-x-6 text-sm text-slate-300 text-[rgba(255,255,255,.5)]">
-              <div className="flex flex-col items-center gap-1 hover:text-white cursor-pointer">
+              <div className="flex flex-col items-center gap-1 hover:text-white cursor-pointer" onClick={() => navigate('/dashboard')}>
                 <FiMail className="text-lg" />
                 <span className="text-xs">SMTP</span>
               </div>
@@ -57,7 +68,7 @@ const MainLayout = () => {
                                 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50"
                 >
                   <div className="py-2">
-                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer">
+                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer" onClick={() => navigate('/login')}>
                       Create Credentials
                     </div>
                   </div>
@@ -80,6 +91,18 @@ const MainLayout = () => {
                                 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition z-50"
                 >
                   <div className="py-2">
+                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer" onClick={() => navigate('/campaigns')}>
+                      CAMPAIGNS
+                    </div>
+                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer" onClick={() => navigate('/users')}>
+                      USERS
+                    </div>
+                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer" onClick={() => navigate('/activity')}>
+                      ACTIVITY LOGS
+                    </div>
+                    <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer">
+                      ----------------
+                    </div>
                     <div className="px-4 py-2 hover:bg-slate-100 cursor-pointer">
                       MAIN SERVER
                     </div>
@@ -384,8 +407,14 @@ const MainLayout = () => {
 
           {/* User */}
           <div className="flex items-center gap-4">
-            <span className="text-sm">NITISH</span>
-            <button className="bg-red-600 px-3 py-1 rounded text-xs">
+            <div className="text-right">
+              <span className="block text-sm font-bold">{user?.name || 'User'}</span>
+              <span className="block text-xs text-slate-400 capitalize">{user?.role || 'Guest'}</span>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-xs transition-colors"
+            >
               Logout
             </button>
           </div>
