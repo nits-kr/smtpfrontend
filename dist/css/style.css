@@ -1,0 +1,14 @@
+/* 
+  Global Styles for Enterprise SMTP Dashboard
+  Note: Main styling is handled by Tailwind CSS in src/index.css.
+  Add custom overrides here if needed.
+*/
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.apexcharts-menu-item {
+  color: black !important;
+}
