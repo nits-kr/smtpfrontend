@@ -61,7 +61,7 @@ const DataTable = ({ columns, data, searchable = true }) => {
   };
 
   return (
-    <div className="w-full bg-[#23272b] border border-slate-800 rounded-lg overflow-hidden flex flex-col h-full mt-[100px]">
+    <div className="w-full bg-[#23272b] border border-slate-800 rounded-lg overflow-hidden flex flex-col h-full">
       {/* ---------------- SEARCH ---------------- */}
       {searchable && (
         <div className="p-4 border-b border-slate-800 flex justify-end">
