@@ -16,7 +16,10 @@ const ActivityLogs = React.lazy(() => import('./features/activity/ActivityLogs')
 function App() {
     return (
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter future={{
+                v7_startTransition: true,
+                v7_relativeSplatPath: true,
+            }}>
                 <ToastContainer theme="dark" position="top-right" />
                 <Routes>
                     <Route path="/login" element={<Login />} />
