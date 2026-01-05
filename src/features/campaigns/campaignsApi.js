@@ -4,7 +4,7 @@ export const campaignsApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getCampaigns: builder.query({
             query: (params) => ({
-                url: '/campaigns',
+                url: 'campaigns',
                 params,
             }),
             providesTags: ['Campaign'],
@@ -15,7 +15,7 @@ export const campaignsApi = apiSlice.injectEndpoints({
         }),
         createCampaign: builder.mutation({
             query: (data) => ({
-                url: '/campaigns',
+                url: 'campaigns/send',
                 method: 'POST',
                 body: data,
             }),

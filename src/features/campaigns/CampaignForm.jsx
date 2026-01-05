@@ -285,9 +285,8 @@ const Step3 = () => {
         >
           <span className="font-medium">Settings</span>
           <span
-            className={`transform transition-transform ${
-              showSettings ? "rotate-180" : ""
-            }`}
+            className={`transform transition-transform ${showSettings ? "rotate-180" : ""
+              }`}
           >
             ▼
           </span>
@@ -492,9 +491,8 @@ const Step3 = () => {
             </div>
           </div>
           <span
-            className={`transform transition-transform ${
-              showSpaceSending ? "rotate-180" : ""
-            }`}
+            className={`transform transition-transform ${showSpaceSending ? "rotate-180" : ""
+              }`}
           >
             ▼
           </span>
@@ -858,10 +856,9 @@ const Step3 = () => {
               key={type}
               className={`
                 flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 cursor-pointer rounded text-xs sm:text-sm
-                ${
-                  contentType === type
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                ${contentType === type
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-400 hover:text-white"
                 }
               `}
             >
@@ -1032,10 +1029,9 @@ const Step4 = () => {
               key={type}
               className={`
                 flex items-center gap-2 px-4 py-2 cursor-pointer rounded text-sm
-                ${
-                  contentType === type
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                ${contentType === type
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-400 hover:text-white"
                 }
               `}
             >
@@ -1056,10 +1052,9 @@ const Step4 = () => {
             onClick={() => setPreviewMode(!previewMode)}
             className={`
               flex items-center gap-2 px-3 py-1.5 rounded border text-sm transition-colors
-              ${
-                previewMode
-                  ? "bg-blue-600/20 border-blue-500 text-blue-400"
-                  : "bg-slate-800 border-slate-700 text-slate-300"
+              ${previewMode
+                ? "bg-blue-600/20 border-blue-500 text-blue-400"
+                : "bg-slate-800 border-slate-700 text-slate-300"
               }
             `}
           >
@@ -1097,8 +1092,8 @@ const Step4 = () => {
               contentType === "html"
                 ? "<html><body><h1>Hello World</h1><p>Your email content here...</p></body></html>"
                 : contentType === "mime"
-                ? "MIME-Version: 1.0\nContent-Type: multipart/alternative;\n\n--boundary\nContent-Type: text/plain; charset=UTF-8\n\nPlain text version...\n\n--boundary\nContent-Type: text/html; charset=UTF-8\n\n<html>HTML version...</html>\n\n--boundary--"
-                : "Enter your plain text email content here..."
+                  ? "MIME-Version: 1.0\nContent-Type: multipart/alternative;\n\n--boundary\nContent-Type: text/plain; charset=UTF-8\n\nPlain text version...\n\n--boundary\nContent-Type: text/html; charset=UTF-8\n\n<html>HTML version...</html>\n\n--boundary--"
+                  : "Enter your plain text email content here..."
             }
           />
           {errors.body && (
@@ -1392,10 +1387,9 @@ const CampaignForm = () => {
                   <div
                     className={`
                       w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-colors duration-300
-                      ${
-                        currentStep >= step.number
-                          ? "bg-blue-600 border-blue-600 text-white"
-                          : "bg-slate-900 border-slate-700 text-slate-500"
+                      ${currentStep >= step.number
+                        ? "bg-blue-600 border-blue-600 text-white"
+                        : "bg-slate-900 border-slate-700 text-slate-500"
                       }
                     `}
                   >
@@ -1404,10 +1398,9 @@ const CampaignForm = () => {
                   <span
                     className={`
                       text-xs font-medium
-                      ${
-                        currentStep >= step.number
-                          ? "text-blue-400"
-                          : "text-slate-600"
+                      ${currentStep >= step.number
+                        ? "text-blue-400"
+                        : "text-slate-600"
                       }
                     `}
                   >
@@ -1433,10 +1426,9 @@ const CampaignForm = () => {
               disabled={currentStep === 1}
               className={`
                 flex items-center gap-2 px-6 py-2 rounded font-medium transition-colors
-                ${
-                  currentStep === 1
-                    ? "text-slate-600 cursor-not-allowed"
-                    : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                ${currentStep === 1
+                  ? "text-slate-600 cursor-not-allowed"
+                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
                 }
               `}
             >

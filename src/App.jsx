@@ -12,6 +12,7 @@ const UserList = React.lazy(() => import('./features/users/UserList'));
 const CampaignList = React.lazy(() => import('./features/campaigns/CampaignList'));
 const CampaignForm = React.lazy(() => import('./features/campaigns/CampaignForm'));
 const ActivityLogs = React.lazy(() => import('./features/activity/ActivityLogs'));
+const CampaignLiveView = React.lazy(() => import('./features/campaigns/CampaignLiveView'));
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                         <Route path="users" element={<RequireAuth allowedRoles={['admin']}><React.Suspense fallback={<div>Loading...</div>}><UserList /></React.Suspense></RequireAuth>} />
                         <Route path="campaigns" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignList /></React.Suspense>} />
                         <Route path="campaigns/new" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignForm /></React.Suspense>} />
+                        <Route path="campaigns/:id/live" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignLiveView /></React.Suspense>} />
                         <Route path="activity" element={<RequireAuth allowedRoles={['admin']}><React.Suspense fallback={<div>Loading...</div>}><ActivityLogs /></React.Suspense></RequireAuth>} />
                         <Route path="reports" element={<div className="text-white">Reports Module (Coming Soon)</div>} />
                     </Route>
