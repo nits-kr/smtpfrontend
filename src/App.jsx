@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { store } from './store/store';
 import MainLayout from './layouts/MainLayout';
 import Login from './features/auth/Login';
+import Signup from './features/auth/Signup';
 import RequireAuth from './features/auth/RequireAuth';
 import Dashboard from './features/dashboard/Dashboard';
 const UserList = React.lazy(() => import('./features/users/UserList'));
@@ -24,6 +25,7 @@ function App() {
                 <ToastContainer theme="dark" position="top-right" />
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
 
                     <Route path="/" element={
                         // <RequireAuth allowedRoles={['admin', 'user']}>

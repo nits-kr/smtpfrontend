@@ -31,10 +31,10 @@ const CampaignLiveView = () => {
             console.log("🔥 Socket Event Received:", data); // Debug log
             console.log("Current Page ID:", id); // Debug log
 
-            if (data.campaignId && data.campaignId !== id) {
-                console.warn(`Mismatch: Event ID ${data.campaignId} !== Page ID ${id}`);
-                return;
-            }
+            // if (data.campaignId && data.campaignId !== id) {
+            //     console.warn(`Mismatch: Event ID ${data.campaignId} !== Page ID ${id}`);
+            //     return;
+            // }
 
             setStats(prevStats => {
                 const newStats = { ...prevStats };

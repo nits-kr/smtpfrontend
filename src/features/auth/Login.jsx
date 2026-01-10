@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useLoginMutation } from './authApi';
 import { setCredentials } from './authSlice';
@@ -15,8 +15,11 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             const result = await login(data).unwrap();
-            dispatch(setCredentials({ ...result, user: result.user }));
-            toast.success('Login Successful! Welcome back.');
+            dispatch(setCredentials({
+                user: result.user,
+                tokens: result.tokens
+            }));
+            toast.success(result.message || 'Login Successful! Welcome back.');
             navigate('/dashboard');
         } catch (error) {
             toast.error(error?.data?.message || 'Login failed');
@@ -55,6 +58,12 @@ const Login = () => {
                     >
                         {isLoading ? 'Signing in...' : 'Sign In'}
                     </button>
+                    <p className="text-center text-slate-400 text-sm mt-4">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="text-blue-400 hover:text-blue-300">
+                            Sign Up
+                        </Link>
+                    </p>
                 </form>
             </div>
         </div>

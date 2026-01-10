@@ -21,8 +21,8 @@ import {
 const MainLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
