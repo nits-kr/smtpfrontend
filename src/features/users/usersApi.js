@@ -7,7 +7,7 @@ export const usersApi = apiSlice.injectEndpoints({
                 url: '/users',
                 params, // { page, limit, search }
             }),
-            providesTags: ['User'],
+            providesTags: ['User'], Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         }),
         createUser: builder.mutation({
             query: (userData) => ({

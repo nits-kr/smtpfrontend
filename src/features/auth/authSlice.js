@@ -17,13 +17,21 @@ const authSlice = createSlice({
     reducers: {
         setCredentials: (state, action) => {
             const { user, tokens } = action.payload;
+            // Normalize role logic: if role is 'admin' or roles is [] (empty array), set to 'admin', otherwise 'other'
+            let assignedRole = 'other';
+            const { role, roles } = user;
 
-            // Optional: sanitize user (recommended)
+            if (role === 'admin' || (Array.isArray(roles) && roles.length === 0)) {
+                assignedRole = 'admin';
+            }
+
             const safeUser = {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                roles: user.roles || [],
+                role: assignedRole,
+                roles: roles || [],
+                permissions: user.permissions || [],
             };
 
             state.user = safeUser;

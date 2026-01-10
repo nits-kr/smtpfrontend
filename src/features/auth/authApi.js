@@ -16,7 +16,15 @@ export const authApi = apiSlice.injectEndpoints({
                 body: userDetails,
             }),
         }),
+        createSubuser: builder.mutation({
+            query: (userDetails) => ({
+                url: 'users/createSubuser',
+                method: 'POST',
+                body: userDetails,
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useCreateSubuserMutation } = authApi;

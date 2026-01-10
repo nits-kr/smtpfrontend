@@ -12,6 +12,7 @@ import Dashboard from './features/dashboard/Dashboard';
 const UserList = React.lazy(() => import('./features/users/UserList'));
 const CampaignList = React.lazy(() => import('./features/campaigns/CampaignList'));
 const CampaignForm = React.lazy(() => import('./features/campaigns/CampaignForm'));
+const AddSubUser = React.lazy(() => import('./features/users/AddSubUser'));
 const ActivityLogs = React.lazy(() => import('./features/activity/ActivityLogs'));
 const CampaignLiveView = React.lazy(() => import('./features/campaigns/CampaignLiveView'));
 
@@ -35,6 +36,7 @@ function App() {
                         <Route index element={<Navigate to="/dashboard" replace />} />
                         <Route path="dashboard" element={<Dashboard />} />
                         <Route path="users" element={<RequireAuth allowedRoles={['admin']}><React.Suspense fallback={<div>Loading...</div>}><UserList /></React.Suspense></RequireAuth>} />
+                        <Route path="users/new" element={<RequireAuth allowedRoles={['admin']}><React.Suspense fallback={<div>Loading...</div>}><AddSubUser /></React.Suspense></RequireAuth>} />
                         <Route path="campaigns" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignList /></React.Suspense>} />
                         <Route path="campaigns/new" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignForm /></React.Suspense>} />
                         <Route path="campaigns/:id/live" element={<React.Suspense fallback={<div>Loading...</div>}><CampaignLiveView /></React.Suspense>} />

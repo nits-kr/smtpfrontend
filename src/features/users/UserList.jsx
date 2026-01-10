@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useGetUsersQuery, useDeleteUserMutation } from './usersApi';
 import DataTable from '../../components/common/DataTable';
 import Button from '../../components/ui/Button';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 const UserList = () => {
     const [page, setPage] = useState(1); // 1-indexed for UI, maybe 0 for API
     const [search, setSearch] = useState('');
-    const { data, isLoading, isError } = useGetUsersQuery({ page, limit: 10, search });
+    const { data, isLoading, isError } = useGetUsersQuery({ page, limit: 10, search: "", role: "subuser" });
     const [deleteUser] = useDeleteUserMutation();
 
     // Mock data fallback if API fails or is empty for dev
@@ -46,8 +47,8 @@ const UserList = () => {
         { key: 'email', label: 'Email' },
         {
             key: 'role', label: 'Role', render: (row) => (
-                <span className={`px-2 py-1 rounded-full text-xs ${row.role === 'admin' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>
-                    {row.role.toUpperCase()}
+                <span className={`px-2 py-1 rounded-full text-xs ${row?.role === 'admin' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                    {row?.role?.toUpperCase()}
                 </span>
             )
         },
@@ -73,9 +74,11 @@ const UserList = () => {
                         onChange={(e) => setSearch(e.target.value)}
                         className="w-64"
                     />
-                    <Button variant="primary">
-                        <FiPlus className="mr-2" /> Add User
-                    </Button>
+                    <Link to="/users/new">
+                        <Button variant="primary" className="flex items-center">
+                            <FiPlus className="mr-2" /> Add User
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
