@@ -29,7 +29,7 @@ const Signup = () => {
         formData.append('password', data.password);
         formData.append('phone', data.phone);
         formData.append('company', data.company);
-        formData.append('role', data.role);
+        // formData.append('role', data.role);
         formData.append('jobTitle', data.jobTitle);
 
         if (data.photo?.[0]) {
