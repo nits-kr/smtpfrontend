@@ -6,6 +6,8 @@ const CampaignLiveView = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [logs, setLogs] = useState([]);
+    console.log("logs", logs);
+
     const [stats, setStats] = useState({
         sent: 0,
         received: 0,
