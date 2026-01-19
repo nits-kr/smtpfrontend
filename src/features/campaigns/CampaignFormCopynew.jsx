@@ -295,6 +295,21 @@ const CampaignForm = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Campaign Template
+                    </label>
+                    <select
+                      {...register("template")}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">None</option>
+                      <option value="pptrom-email">PPTrom-Email</option>
+                      <option value="newsletter">Newsletter Template</option>
+                      <option value="promotional">Promotional Template</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                       Campaign Name *
                     </label>
                     <Input
@@ -303,7 +318,18 @@ const CampaignForm = () => {
                       })}
                       error={errors.name}
                       placeholder="e.g. Monthly Newsletter - Jan 2026"
-                      className="border-gray-300 focus:ring-blue-500 bg-white"
+                      className="border-gray-300 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Description (Optional)
+                    </label>
+                    <textarea
+                      {...register("description")}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24"
+                      placeholder="Internal reference notes..."
                     />
                   </div>
                 </div>
@@ -329,6 +355,34 @@ const CampaignForm = () => {
                     {errors.recipientStats.message}
                   </p>
                 )}
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-blue-50 p-3 rounded border border-blue-100">
+                    <div className="text-xs text-blue-600">Total Lines</div>
+                    <div className="text-xl font-bold text-blue-700">
+                      {stats.total}
+                    </div>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded border border-green-100">
+                    <div className="text-xs text-green-600">Valid Emails</div>
+                    <div className="text-xl font-bold text-green-700">
+                      {stats.valid}
+                    </div>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded border border-red-100">
+                    <div className="text-xs text-red-600">Invalid</div>
+                    <div className="text-xl font-bold text-red-700">
+                      {stats.invalid}
+                    </div>
+                  </div>
+                  <div className="bg-yellow-50 p-3 rounded border border-yellow-100">
+                    <div className="text-xs text-yellow-600">Duplicates</div>
+                    <div className="text-xl font-bold text-yellow-700">
+                      {stats.duplicates}
+                    </div>
+                  </div>
+                </div>
 
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -434,7 +488,7 @@ const CampaignForm = () => {
                           className="accent-blue-600"
                           defaultChecked
                         />
-                        <span className="text-sm text-gray-700">RESET</span>
+                        <span className="text-sm text-gray-700">REST</span>
                       </label>
                     </div>
                   </div>
@@ -449,7 +503,7 @@ const CampaignForm = () => {
                     })}
                     error={errors.fromEmail}
                     placeholder="Game@demo.com"
-                    className="border-gray-300 focus:ring-blue-500 bg-white"
+                    className="border-gray-300 focus:ring-blue-500"
                   />
                 </div>
 
@@ -486,7 +540,7 @@ const CampaignForm = () => {
                           className="accent-blue-600"
                           defaultChecked
                         />
-                        <span className="text-sm text-gray-700">RESET</span>
+                        <span className="text-sm text-gray-700">REST</span>
                       </label>
                     </div>
                   </div>
@@ -496,7 +550,7 @@ const CampaignForm = () => {
                     })}
                     error={errors.subject}
                     placeholder="Enter subject"
-                    className="border-gray-300 focus:ring-blue-500 bg-white"
+                    className="border-gray-300 focus:ring-blue-500"
                   />
                 </div>
 
@@ -533,14 +587,14 @@ const CampaignForm = () => {
                           className="accent-blue-600"
                           defaultChecked
                         />
-                        <span className="text-sm text-gray-700">RESET</span>
+                        <span className="text-sm text-gray-700">REST</span>
                       </label>
                     </div>
                   </div>
                   <Input
                     {...register("senderName")}
                     placeholder="Enter sender name"
-                    className="border-gray-300 focus:ring-blue-500 bg-white"
+                    className="border-gray-300 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -590,6 +644,7 @@ const CampaignForm = () => {
                 </div>
               </div>
 
+              {/* Message Content */}
               <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-semibold text-gray-800">
@@ -603,6 +658,7 @@ const CampaignForm = () => {
                   </div>
                 </div>
 
+                {/* Content Editor */}
                 <textarea
                   {...register("body", {
                     required: "Email content is required",
@@ -622,6 +678,7 @@ const CampaignForm = () => {
                   </p>
                 )}
 
+                {/* MIME Message Section */}
                 {contentType === "mime" && (
                   <div className="mt-4">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -634,8 +691,20 @@ const CampaignForm = () => {
                     />
                   </div>
                 )}
+
+                {/* Search & Replace Button */}
+                <div className="flex justify-end mt-4">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors border border-gray-300"
+                  >
+                    <FiSearch className="w-4 h-4" />
+                    Search & Replace
+                  </button>
+                </div>
               </div>
 
+              {/* Advanced Settings */}
               <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                 <button
                   type="button"
@@ -700,9 +769,62 @@ const CampaignForm = () => {
                   </div>
                 )}
               </div>
+
+              {/* Reply-To */}
+              <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Reply-To Email
+                </label>
+                <Input
+                  {...register("replyTo", {
+                    pattern: {
+                      value: /^\S+@\S+$/,
+                      message: "Invalid email address",
+                    },
+                  })}
+                  error={errors.replyTo}
+                  placeholder="Optional"
+                  className="border-gray-300 focus:ring-blue-500"
+                />
+              </div>
             </div>
 
+            {/* Right Column - Email Content & Advanced Settings */}
             <div className="lg:col-span-1 space-y-6">
+              {/* Send Configuration */}
+              <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">
+                  Send Configuration
+                </h2>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Schedule Send (Optional)
+                    </label>
+                    <input
+                      type="datetime-local"
+                      {...register("scheduleDate")}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Throttling (Emails/Hour)
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      {...register("throttle", {
+                        min: { value: 1, message: "Minimum 1" },
+                      })}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      defaultValue="100"
+                    />
+                  </div>
+                </div>
+              </div>
               <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                 <button
                   type="button"
@@ -1091,6 +1213,93 @@ const CampaignForm = () => {
                 )}
               </div>
 
+              {/* Test Send Option */}
+              <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <h4 className="text-gray-800 font-medium mb-2">Test Send</h4>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="test@example.com"
+                    className="flex-grow border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+                  >
+                    Send Test
+                  </button>
+                </div>
+              </div>
+              <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Campaign Summary
+                </h3>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div>
+                    <span className="text-gray-600 text-sm block">
+                      Campaign Name
+                    </span>
+                    <span className="text-gray-800 font-medium">
+                      {values.name || "Not set"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 text-sm block">
+                      Valid Recipients
+                    </span>
+                    <span className="text-green-600 font-bold">
+                      {values.recipientStats?.valid || 0}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 text-sm block">From</span>
+                    <span className="text-gray-800 font-medium">
+                      {values.senderName || "Not set"} &lt;
+                      {values.fromEmail || "Not set"}&gt;
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 text-sm block">Subject</span>
+                    <span className="text-gray-800 font-medium">
+                      {values.subject || "Not set"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 text-sm block">
+                      Email Format
+                    </span>
+                    <span className="text-gray-800 font-medium uppercase">
+                      {values.contentType || "plain"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 text-sm block">
+                      Encoding
+                    </span>
+                    <span className="text-gray-800 font-medium font-mono">
+                      {values.encoding || "UTF-8"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Ready to Launch */}
+                <div className="mt-6 p-4 bg-blue-50 rounded border border-blue-200">
+                  <div className="flex items-start gap-3">
+                    <FiSend className="text-blue-600 text-xl mt-0.5" />
+                    <div>
+                      <h4 className="text-blue-800 font-medium">
+                        Ready to Launch?
+                      </h4>
+                      <p className="text-blue-600 text-sm mt-1">
+                        Review all settings above. Once you click "Launch
+                        Campaign", the process will start immediately or at the
+                        scheduled time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm flex items-center justify-center">
                 <Button
                   variant="primary"

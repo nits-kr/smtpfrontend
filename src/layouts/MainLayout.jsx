@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/auth/authSlice";
@@ -28,8 +28,8 @@ const MainLayout = () => {
     navigate("/login");
   };
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [expandedMobileMenus, setExpandedMobileMenus] = React.useState({});
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedMobileMenus, setExpandedMobileMenus] = useState({});
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
